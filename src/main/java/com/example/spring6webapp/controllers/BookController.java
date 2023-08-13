@@ -1,4 +1,4 @@
-package com.example.spring6webapp.controller;
+package com.example.spring6webapp.controllers;
 
 import com.example.spring6webapp.services.BookService;
 import org.springframework.stereotype.Controller;
