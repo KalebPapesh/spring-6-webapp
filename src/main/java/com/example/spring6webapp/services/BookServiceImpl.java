@@ -5,10 +5,10 @@ import com.example.spring6webapp.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BookServicesImpl implements BookServices {
+public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
-    public BookServicesImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
