@@ -31,14 +31,6 @@ public class BootstrapData implements CommandLineRunner {
     //CommandLineRunner requires a run method
     @Override
     public void run(String... args) throws Exception {
-        Author jrrTolkien = new Author();
-        jrrTolkien.setFirstName("JRR");
-        jrrTolkien.setLastName("Tolkien");
-
-        Book fellowshipOfTheRing = new Book();
-        fellowshipOfTheRing.setTitle("Fellowship of the Ring");
-        fellowshipOfTheRing.setIsbn("123456");
-
         Publisher harperCollins = new Publisher();
         harperCollins.setPublisherName("HarperCollins");
         harperCollins.setAddress("195 Broadway");
@@ -46,32 +38,59 @@ public class BootstrapData implements CommandLineRunner {
         harperCollins.setState("New York");
         harperCollins.setZip("10007");
 
-        Author jrrTolkienSaved = authorRepository.save(jrrTolkien);
-        Book fellowshipSaved = bookRepository.save(fellowshipOfTheRing);
-
-        Author frankHerbert = new Author();
-        frankHerbert.setFirstName("Frank");
-        frankHerbert.setLastName("Herbert");
-
-        Book dune = new Book();
-        dune.setTitle("Dune");
-        dune.setIsbn("234567");
-
         Publisher chiltonBooks = new Publisher();
         chiltonBooks.setAddress("1025 Andrew Dr Ste 100");
         chiltonBooks.setCity("West Chester");
         chiltonBooks.setState("PA");
         chiltonBooks.setZip("19380");
 
-        Author frankHerbertSaved = authorRepository.save(frankHerbert);
-        Book duneSaved = bookRepository.save(dune);
         Publisher harperCollinsSaved = publisherRepository.save(harperCollins);
         Publisher chiltonBooksSaved = publisherRepository.save(chiltonBooks);
 
+        Author jrrTolkien = new Author();
+        jrrTolkien.setFirstName("JRR");
+        jrrTolkien.setLastName("Tolkien");
+
+        Author frankHerbert = new Author();
+        frankHerbert.setFirstName("Frank");
+        frankHerbert.setLastName("Herbert");
+
+        Author hgWells = new Author();
+        hgWells.setFirstName("H.G.");
+        hgWells.setLastName("Wells");
+
+        Book fellowshipOfTheRing = new Book();
+        fellowshipOfTheRing.setTitle("Fellowship of the Ring");
+        fellowshipOfTheRing.setIsbn("123456");
+
+        Book warOfTheWorlds = new Book();
+        warOfTheWorlds.setTitle("War of the Worlds");
+        warOfTheWorlds.setPublisher(harperCollinsSaved);
+        warOfTheWorlds.setIsbn("456789");
+
+        Book dune = new Book();
+        dune.setTitle("Dune");
+        dune.setPublisher(chiltonBooksSaved);
+        dune.setIsbn("234567");
+
+        Book duneMessiah = new Book();
+        duneMessiah.setTitle("Dune Messiah");
+        duneMessiah.setPublisher(chiltonBooksSaved);
+        duneMessiah.setIsbn("345678");
+
+        Author jrrTolkienSaved = authorRepository.save(jrrTolkien);
+        Author hgWellsSaved = authorRepository.save(hgWells);
+        Author frankHerbertSaved = authorRepository.save(frankHerbert);
+
+        Book fellowshipSaved = bookRepository.save(fellowshipOfTheRing);
+        Book warOfTheWorldsSaved = bookRepository.save(warOfTheWorlds);
+        Book duneSaved = bookRepository.save(dune);
+        Book duneMessiahSaved = bookRepository.save(duneMessiah);
+
         jrrTolkienSaved.getBooks().add(fellowshipSaved);
+        hgWellsSaved.getBooks().add(warOfTheWorldsSaved);
         frankHerbertSaved.getBooks().add(duneSaved);
-
-
+        frankHerbertSaved.getBooks().add(duneMessiahSaved);
 
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
