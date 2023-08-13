@@ -28,7 +28,7 @@ public class BootstrapData implements CommandLineRunner {
         this.publisherRepository = publisherRepository;
     }
 
-    //CommandLineRunner requires a run method
+    // CommandLineRunner requires a run method
     @Override
     public void run(String... args) throws Exception {
         Publisher harperCollins = new Publisher();
@@ -39,6 +39,7 @@ public class BootstrapData implements CommandLineRunner {
         harperCollins.setZip("10007");
 
         Publisher chiltonBooks = new Publisher();
+        chiltonBooks.setPublisherName("Chilton Books");
         chiltonBooks.setAddress("1025 Andrew Dr Ste 100");
         chiltonBooks.setCity("West Chester");
         chiltonBooks.setState("PA");
@@ -61,6 +62,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Book fellowshipOfTheRing = new Book();
         fellowshipOfTheRing.setTitle("Fellowship of the Ring");
+        fellowshipOfTheRing.setPublisher(harperCollinsSaved);
         fellowshipOfTheRing.setIsbn("123456");
 
         Book warOfTheWorlds = new Book();
@@ -91,6 +93,21 @@ public class BootstrapData implements CommandLineRunner {
         hgWellsSaved.getBooks().add(warOfTheWorldsSaved);
         frankHerbertSaved.getBooks().add(duneSaved);
         frankHerbertSaved.getBooks().add(duneMessiahSaved);
+        fellowshipSaved.getAuthors().add(jrrTolkienSaved);
+        warOfTheWorldsSaved.getAuthors().add(hgWellsSaved);
+        duneSaved.getAuthors().add(frankHerbertSaved);
+        duneMessiahSaved.getAuthors().add(frankHerbertSaved);
+
+        // The updated items to include the book -> author relationship
+        // and author -> book relationship have to be saved again to update the author_book table
+        authorRepository.save(jrrTolkienSaved);
+        authorRepository.save(hgWellsSaved);
+        authorRepository.save(frankHerbertSaved);
+
+        bookRepository.save(fellowshipSaved);
+        bookRepository.save(warOfTheWorldsSaved);
+        bookRepository.save(duneSaved);
+        bookRepository.save(duneMessiahSaved);
 
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
